@@ -19,11 +19,13 @@
         }
   
         moveLeft(){
-  
+        this.isMovingLeft = true;
+        this.isMovingRight=false;
         }
   
         moveRight(){
-  
+            this.isMovingLeft = false;
+            this.isMovingRight=true;
         }
   
         fireBullet(){
@@ -31,6 +33,9 @@
         }
       }
   
+
+
+
   
       class Invader {
         constructor(invaderElement, x,y,width,height){
@@ -44,7 +49,8 @@
         }
   
         move(){
-  
+            this.y += 1; // Adjust this value to control the speed of descent
+            this.element.style.top = this.y + 'x'; // Update the CSS to reflect the new position
         }
   
         draw() {
@@ -73,11 +79,23 @@
 
 
 
+// player moving and shooting
+function keyPressed() {
+    if (keyCode === RIGHT_ARROW || keyCode == 88) {
+      player.moveRight();
+    } else if (keyCode === LEFT_ARROW || keyCode == 90) {
+      player.moveLeft();
+    } else if (keyCode === 32) {
+      player.shoot();
+    }
+  }
 
 
 
-
-
+// Move invaders down periodically
+setInterval(() => {
+    invaders.forEach(invader => invader.moveDown());
+  }, 1000); // Adjust this value to control how often the invaders move down
 
 
 
